@@ -12,7 +12,7 @@ const name=(p:Player)=>String(p.player_name??p.name??p.common_name??`Card #${id(
 const bin=(p:Player)=>Number(p.current_bin??p.lowest_bin)||null;
 const num=(v:any)=>typeof v==="number"&&Number.isFinite(v)?Math.round(v).toLocaleString("en-GB"):"—";
 const percent=(v:number|null)=>v===null?"—":`${v>0?"+":""}${v.toFixed(1)}%`;
-const age=(p:Player)=>{const time=Date.parse(p.current_bin_captured_at??p.bin_captured_at??p.price_updated_at??"");return Number.isFinite(time)?Math.max(0,(Date.now()-time)/60000):Infinity;};
+const age=(p:Player)=>{const time=Date.parse(p.current_bin_checked_at??p.bin_checked_at??p.current_bin_captured_at??p.bin_captured_at??p.price_updated_at??"");return Number.isFinite(time)?Math.max(0,(Date.now()-time)/60000):Infinity;};
 async function get(path:string):Promise<any>{const res=await fetch(`/api/market?path=${encodeURIComponent(path)}`,{cache:"no-store"});const data:any=await res.json();if(!res.ok)throw new Error(data.error??`HTTP ${res.status}`);return data;}
 
 function Chart({points,hours}:{points:Observation[];hours:number}){
