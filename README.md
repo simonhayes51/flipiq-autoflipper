@@ -4,12 +4,15 @@ This is the standalone Next.js version of the FC 27 Autoflipper. It talks to the
 
 ## Coolify
 
-1. Create a new GitHub repository, upload the contents of this folder, and connect it in Coolify as a new application.
-2. Choose **Dockerfile** build strategy, base directory `/`, Dockerfile location `Dockerfile`, exposed port `3000`.
-3. Add runtime environment variable `EAFC_API_BASE` with the externally reachable EAFC.Live API base URL (without `/api/v2`). Defaults to `https://api.eafc.live` if unset.
-4. Assign a domain and HTTPS in Coolify, then deploy.
-5. Visit `/api/market?path=%2Fmarket%2Ffreshness` to verify reachability. It should return source freshness JSON; a 503 means the upstream feed cannot be reached.
+1. Connect `simonhayes51/flipiq-autoflipper` in Coolify as a Dockerfile app, base directory `/`, Dockerfile location `/Dockerfile`, port `3000`.
+2. Generate one random shared service token on your home server: `openssl rand -hex 32` (64 characters). Do not commit or paste the result into tickets/logs.
+3. In **EAFC.Live Backend** Coolify environment, set `FLIPIQ_SERVICE_TOKEN` to that generated token. Redeploy the backend after its protected endpoint is merged.
+4. In **FLIPIQ** Coolify environment, set `FLIPIQ_SERVICE_TOKEN` to the *same* token, `FLIPIQ_SITE_PASSWORD` to a different strong site password (at least 12 characters), and `EAFC_API_BASE` to the externally reachable backend origin without `/api/v2` (e.g. `https://api.eafc.live`). Mark tokens/passwords as secrets and do not use build-time public/NEXT_PUBLIC variables.
+5. After the backend is available, merge the frontend's private integration PR and redeploy FLIPIQ. The site now uses HTTPS Basic Auth: username `flipiq`, password from `FLIPIQ_SITE_PASSWORD`.
+6. Confirm `/api/market?path=%2Fmarket%2Fflipiq-opportunities%3Fpage_size%3D1` after signing into FLIPIQ. The JSON should have `scanner_candidates_considered` and full market fields, not `locked` teaser items.
 
-No database or volume is required for this dashboard version. Watchlist and preferences currently use browser localStorage; background alerts and server-side persistence are not yet implemented.
+This intentionally fails closed: the whole FLIPIQ site returns `503` if `FLIPIQ_SITE_PASSWORD` is absent, and the opportunities proxy returns `503` if its token is absent. The backend responds `401` for a wrong service token and `503` if its token is not configured. **Never deploy the private feed without protecting site access**; otherwise public visitors could consume EAFC.Live's full data through the proxy.
+
+No database or volume is required for this dashboard version. Watchlist and preferences currently use browser localStorage; background alerts and server-side persistence are not yet implemented. The 3/6/9h charts are based on actual recorded BIN history and intentionally report insufficient data when unavailable.
 
 Run locally with `npm ci`, `npm run build`, `npm start`.
