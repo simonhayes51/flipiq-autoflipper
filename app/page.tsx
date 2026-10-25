@@ -37,7 +37,7 @@ export default function Home(){
   const load=useCallback(async()=>{if(view==="settings")return;setLoading(true);setError("");
     const healthRequest=get("/market/freshness").then(setFreshness).catch(()=>setFreshness(null));
     try{
-      const path=view==="search"?`/players?search=${encodeURIComponent(search)}&page_size=50`:`/opportunities?page_size=50&min_profit=${settings.minProfit}`;
+      const path=view==="search"?`/players?search=${encodeURIComponent(search)}&page_size=50`:`/market/flipiq-opportunities?page_size=50&min_profit=${settings.minProfit}`;
       const data=view==="watchlist"?await Promise.all(watched.slice(0,30).map(card=>get(`/players/${card}`).then(d=>({...d.player,...d.intelligence})).catch(()=>null))).then(cards=>({items:cards.filter(Boolean)})):await get(path);
       if(view==="opportunities")setScannerCandidates(typeof data.scanner_candidates_considered==="number"?data.scanner_candidates_considered:null);
       const riskRank:Record<string,number>={low:0,medium:1,high:2,avoid:3};
