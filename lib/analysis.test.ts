@@ -1,0 +1,15 @@
+import assert from "node:assert/strict";
+import {analyse, netTrade} from "./analysis";
+assert.equal(netTrade(10000,12000).gross,2000);
+assert.equal(netTrade(10000,12000).net,1400);
+assert.ok(Math.abs(netTrade(10000,12000).roi-14)<1e-8);
+assert.equal(netTrade(10000,12000).breakEven,10527);
+assert.equal(netTrade(10000,9000).net,-1450);
+assert.equal(netTrade(0,9000).net,0);
+assert.equal(analyse([]).windows[3].change,null);
+const now=Date.now();
+const prices=Array.from({length:19},(_,i)=>({time:now-(18-i)*30*60000,price:10000-i*100}));
+const result=analyse(prices,16);
+assert.equal(result.windows[9].status,"Significant decline");
+assert.equal(result.windows[3].status,"Declining");
+console.log("Analysis checks passed");
