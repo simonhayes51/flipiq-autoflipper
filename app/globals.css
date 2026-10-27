@@ -34,3 +34,11 @@
 .drop-dashboard td b.negative{font-size:16px}
 .drawer .detail-stats>div{min-width:0}
 .drawer .detail-stats b{overflow-wrap:anywhere}
+
+/* Investment research: visual clarity without implying executable trades */
+.investment-dashboard{margin-bottom:22px}
+.investment-dashboard .drop-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+.investment-dashboard .table-overflow table{min-width:1010px}
+.investment-refresh{display:inline-flex;align-items:center;gap:8px;border:1px solid #35516a;background:#172e45;color:#cbe3ff;border-radius:8px;padding:10px 13px}
+.investment-dashboard tbody tr:hover{background:#1a3043}
+.investment-dashboard .drop-summary small{margin-top:6px}
