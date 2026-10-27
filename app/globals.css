@@ -24,3 +24,13 @@
 .drop-summary b{display:block;margin-top:12px;font-size:28px}
 .drop-dashboard .notice{margin:0;padding:20px 25px;line-height:1.7;border-top:1px solid #283849}
 @media(max-width:620px){.drop-summary>div{padding:15px 10px}.drop-summary b{font-size:22px}.drop-summary small{font-size:8px}.drop-control-row{width:100%}}
+
+/* Identified player artwork in scanner rows, with a safe rating fallback. */
+.player .rating{overflow:hidden;position:relative;isolation:isolate}
+.player .rating img{width:100%;height:100%;object-fit:cover;object-position:center 20%;background:#baaa77}
+.player .rating span{position:relative;z-index:1}
+.drop-dashboard tbody tr td{padding-top:19px;padding-bottom:19px}
+.drop-dashboard tbody tr:hover{background:#1c3147}
+.drop-dashboard td b.negative{font-size:16px}
+.drawer .detail-stats>div{min-width:0}
+.drawer .detail-stats b{overflow-wrap:anywhere}
