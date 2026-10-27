@@ -10,3 +10,17 @@
 .evidence-health .evidence-grid b{margin:9px 0 4px}
 .evidence-note{margin:8px 22px 22px;line-height:1.65}
 @media(max-width:650px){.evidence-health .evidence-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px;gap:8px}.evidence-health .evidence-grid>div{padding:13px}.evidence-health .evidence-grid b{font-size:24px}.evidence-note{margin:10px 15px 18px}}
+
+/* FLIPIQ empirical price-drop and bounce-back dashboard */
+.drop-dashboard{background:#111e2d;border:1px solid #283849;border-radius:13px;overflow:hidden}
+.drop-controls{flex-wrap:wrap}
+.drop-control-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.drop-control-row label{display:flex;align-items:center;gap:8px;color:#9fb4c8;font-size:12px}
+.drop-control-row select,.drop-control-row button{background:#172e45;border:1px solid #395672;border-radius:8px;padding:9px 11px;color:#dbedff}
+.drop-control-row button{display:flex;align-items:center;gap:7px}
+.drop-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #283849}
+.drop-summary>div{padding:23px 26px;border-right:1px solid #283849}
+.drop-summary small{display:block;color:#7994ae;letter-spacing:.8px;font-size:10px;font-weight:700}
+.drop-summary b{display:block;margin-top:12px;font-size:28px}
+.drop-dashboard .notice{margin:0;padding:20px 25px;line-height:1.7;border-top:1px solid #283849}
+@media(max-width:620px){.drop-summary>div{padding:15px 10px}.drop-summary b{font-size:22px}.drop-summary small{font-size:8px}.drop-control-row{width:100%}}
