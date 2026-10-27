@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   try {
     const headers:Record<string,string>={Accept:"application/json"};
     if(isPrivateFeed)headers["X-FLIPIQ-Token"]=token;
-    const result=await fetch(`${origin}/api/v2${path}`, {cache:"no-store",headers,signal:AbortSignal.timeout(12000)});
+    const result=await fetch(`${origin}/api/v2${path}`, {cache:"no-store",headers,signal:AbortSignal.timeout(path.startsWith("/market/flipiq-price-drops")?45000:12000)});
     if (!result.ok) return NextResponse.json({error:`Market provider returned HTTP ${result.status}`},{status:502});
     return NextResponse.json(await result.json(),{headers:{"Cache-Control":"no-store"}});
   } catch { return NextResponse.json({error:"EAFC.Live market feed is unreachable"},{status:503}); }
